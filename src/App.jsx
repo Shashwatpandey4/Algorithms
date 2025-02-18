@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Dijkstra from "./pages/Dijkstra";
+import BFS from "./pages/BFS";
+import DFS from "./pages/DFS";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div style={{ display: "flex", width: "100vw" }}>
+        {/* Fixed Sidebar (20%) */}
+        <Navbar />
+
+        {/* Scrollable Main Content (80%) */}
+        <div style={{
+          width: "80vw",
+          minHeight: "100vh", // Makes sure it stretches with content
+          marginLeft: "20vw", // Offsets for the fixed navbar
+          padding: "2rem",
+          background: "#1e1e1e",
+          color: "white",
+          overflowY: "auto",
+        }}>
+          <Routes>
+            <Route path="/dijkstra" element={<Dijkstra />} />
+            <Route path="/bfs" element={<BFS />} />
+            <Route path="/dfs" element={<DFS />} />
+          </Routes>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
